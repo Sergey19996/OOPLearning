@@ -55,6 +55,43 @@ public:
 
 
 
+		  
+
+
+
+
+
+
+	myString operator +(const myString& input)
+	{
+		myString Help;
+
+
+		Help.size = this->size + input.size;
+		Help.AddArray(*this, Help.size, input); //help Class Calling this function
+
+		return  Help;
+
+	}
+
+
+
+
+	myString operator -(const myString& input)
+	{
+		myString Help;
+
+
+		Help.size = this->size - input.size;
+		Help.SubArray(*this, Help.size, input); //help Class Calling this function
+
+		return  Help;
+
+	}
+
+
+
+
 private:
 
 	char* arr =nullptr;
@@ -62,6 +99,62 @@ private:
 
 protected:
 	 
+
+
+	void AddArray(const myString& input1, int NewSize, const myString& input2)
+	{
+		this->arr = new char[NewSize+1];    //this Array it's meaning the aray which class we called this function. 
+
+		for (int x = 0; x < NewSize; x++)  // MyString Help Class Called this Array. array own this class. 
+		{
+			if (x == input1.size)
+			{
+
+				for (int i = 0; i < input2.size; i++,x++)
+				{
+					this->arr[x] = input2.arr[i];
+				}
+
+
+				break;
+			}
+			this->arr[x] = input1.arr[x];
+		}
+
+		this->arr[NewSize] = '\0';
+
+	}
+
+
+
+	void SubArray(const myString& input1, int NewSize, const myString& input2)
+	{
+		this->arr = new char[NewSize + 1];    //this Array it's meaning the aray which class we called this function. 
+
+		for (int x = 0; x < NewSize; x++)  // MyString Help Class Called this Array. array own this class. 
+		{
+			if (x == input1.size)
+			{
+
+				for (int i = 0; x < NewSize; i++, x++)   //we must check on amout of   difference values x and NewSize
+				{
+					this->arr[x] = input2.arr[i];
+				}
+
+
+				break;
+			}
+			this->arr[x] = input1.arr[x];
+		}
+
+		this->arr[NewSize] = '\0';
+
+	}
+
+
+
+
+
 
 
 
@@ -82,9 +175,14 @@ protected:
 
 int main()
 {
-	myString a("1");
+	myString a("212");
 
-	myString b (a);
-	
+	myString b ("3");
+
+	myString c = a - b;
+
+	 //a = b = c;   Must do this  
+	c.Print();
+
 	return 0;
 }
