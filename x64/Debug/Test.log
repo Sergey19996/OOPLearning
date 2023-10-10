@@ -1,0 +1,5 @@
+﻿  Source.cpp
+D:\C++\Test\olcConsoleGameEngine.h(759,1): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\C++\Test\olcConsoleGameEngine.h(1099,1): warning C4267: return: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+D:\C++\Test\olcConsoleGameEngine.h(1196,1): warning C4312: приведение типов: преобразование из "DWORD" в "olcConsoleGameEngine *" большего размера
+  Test.vcxproj -> D:\C++\Test\x64\Debug\Test.exe
