@@ -1,7 +1,20 @@
 #include <iostream>
 
-
+class myString;
+class NewString;
 using namespace std;
+
+class NewString
+{
+
+public:
+	void GetSize(myString& size);
+
+
+private:
+
+};
+
 
 class myString
 {
@@ -43,24 +56,8 @@ public:
 	}
 
 
-
-
-	void Print()
-	{
-		for (int i = 0; i < size; i++)
-		{
-			cout << arr[i];
-		}
-	}
-
-
-
-		  
-
-
-
-
-
+	void Print();
+	
 
 	myString operator +(const myString& input)
 	{
@@ -73,7 +70,6 @@ public:
 		return  Help;
 
 	}
-
 
 	myString& operator =(const myString& input)
 	{
@@ -184,6 +180,22 @@ public:
 	}
 
 
+	char& operator [](int index)
+	{
+		if (index >size)
+		{
+			cout << arr[size-1];
+			return arr[size-1];
+		}
+		if (index<0)
+		{
+			cout << arr[0];
+			return arr[0];
+		}
+		cout << arr[index];
+		return arr[index];
+	
+	}
 
 private:
 
@@ -349,7 +361,35 @@ protected:
 		arr[size] = '\0';
 	}
 
+
+
+	friend void Check(myString& value);
+	friend void NewString::GetSize( myString& size);
 };
+
+
+void Check(myString& value)
+{
+	value.size = 0;
+}
+
+void myString::Print()
+{
+	{
+		for (int i = 0; i < size; i++)
+		{
+			cout << arr[i];
+		}
+	}
+}
+void NewString::GetSize(myString& size)
+{
+	size.Print();
+}
+
+
+
+
 
 int main()
 {
@@ -359,18 +399,20 @@ int main()
 
 	myString c = a - b;
 
-	 
-	// ++a;
-	bool s = a > b;
+	a[-100];
 	
-	cout << s;
+//	bool s = a > b;
+	
+//	cout << s;
 
+	Check(b);
 	 
-	 
-	
-	
+	NewString d;
+	d.GetSize(a);
+	b.Print();
 
-	a.Print();
+	//a.Print();
 
 	return 0;
 }
+
