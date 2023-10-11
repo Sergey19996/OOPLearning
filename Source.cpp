@@ -75,6 +75,72 @@ public:
 	}
 
 
+	myString& operator =(const myString& input)
+	{
+		
+
+
+		this->size =  input.size;
+		this->InitArr( this->size, input.arr); //help Class Calling this function
+
+		return  *this;
+
+	}
+
+
+	myString& operator ++()    //Class& Mean selfame 
+	{
+
+		this->size += 1;
+
+		this->PlusPlus(this->size);
+
+		return  *this;
+
+	}
+
+	myString& operator ++(const int input)    //Class& Mean selfame for increment in right Side 
+	{
+
+		this->size += 1;
+
+		this->PlusPlus(this->size);
+
+		return  *this;
+
+	}
+
+
+
+	myString& operator --()    //Class& Mean selfame 
+	{
+
+		this->size -= 1;
+		if (this->size <0)
+		{
+			this->size = 0;
+		}
+		if (this->size ==0)    
+		{
+			if (this->arr !=nullptr)            //if array ==0 we rewrite it in hard where first symbol is gonna be e,pty
+			{
+				delete[] this->arr;
+				this->arr = new char[1];         //when we create a dynamic place for parametrs, we create numbers of slots . one means one slot  not 0 and one.
+				arr[0] = '\0';
+				//arr[1] = '\0';
+			}
+
+
+			return  *this;
+		}
+
+		this->MinusMinus(this->size);
+
+		return  *this;
+
+	}
+
+
 
 
 	myString operator -(const myString& input)
@@ -83,6 +149,10 @@ public:
 
 
 		Help.size = this->size - input.size;
+		if (Help.size<0)
+		{
+			Help.size = 0;
+		}
 		Help.SubArray(*this, Help.size, input); //help Class Calling this function
 
 		return  Help;
@@ -90,12 +160,36 @@ public:
 	}
 
 
+	bool operator <(const myString& input)
+	{
+		if (this->size <  input.size)
+		{
+			
+			return false;
+
+		}
+		
+		return true;
+	}
+	bool operator >(const myString& input)
+	{
+		if (this->size > input.size)
+		{
+			cout << "true";
+			return false;
+
+		}
+		cout << "false";
+		return true;
+	}
+
 
 
 private:
 
 	char* arr =nullptr;
 	char size =0 ;
+	bool more = false;
 
 protected:
 	 
@@ -153,8 +247,92 @@ protected:
 
 
 
+	void PlusPlus(int size)     //This setter is travel through input array and write all in our array
+	{
 
 
+		
+		//arr = new char[size + 1];
+
+		if (arr !=nullptr)          //if our array not empty, we copy all in our help array
+		{
+			char* helpArr = new char[size + 1];
+			for (int i = 0; i < size-1; i++)        //size - 1, just for keep the border of our old array. 
+			{
+				helpArr[i] = arr[i];
+
+
+			}
+			helpArr[size - 1] = '+';
+			helpArr[size] = '\0';
+
+			delete[] arr;
+			arr = new char[size + 1];
+
+			for (int i = 0; i < size; i++)        //size - 1, just for keep the border of our old array. 
+			{
+				arr[i] = helpArr [i] ;
+
+
+			}
+			arr[size] = '\0';
+			delete[] helpArr;
+
+
+		}
+		if (arr ==nullptr)
+		{
+			arr = new char[size + 1];
+			arr[0] = '+';
+			arr[size] = '\0';
+		}
+		
+		
+	}
+
+
+	void MinusMinus(int size)     //This setter is travel through input array and write all in our array
+	{
+
+
+
+		//arr = new char[size + 1];
+
+		if (arr != nullptr)          //if our array not empty, we copy all in our help array
+		{
+			char* helpArr = new char[size + 1];
+			for (int i = 0; i < size; i++)        //size - 1, just for keep the border of our old array. 
+			{
+				helpArr[i] = arr[i];
+
+
+			}
+			
+			helpArr[size] = '\0';
+
+			delete[] arr;
+			arr = new char[size + 1];
+
+			for (int i = 0; i < size; i++)        //size - 1, just for keep the border of our old array. 
+			{
+				arr[i] = helpArr[i];
+
+
+			}
+			arr[size] = '\0';
+			delete[] helpArr;
+
+
+		}
+		if (arr == nullptr)
+		{
+			arr = new char[size + 1];
+			arr[0] = '-';
+			arr[size] = '\0';
+		}
+
+
+	}
 
 
 
@@ -175,14 +353,24 @@ protected:
 
 int main()
 {
-	myString a("212");
+	myString a("wda");
 
 	myString b ("3");
 
 	myString c = a - b;
 
-	 //a = b = c;   Must do this  
-	c.Print();
+	 
+	// ++a;
+	bool s = a > b;
+	
+	cout << s;
+
+	 
+	 
+	
+	
+
+	a.Print();
 
 	return 0;
 }
