@@ -1,19 +1,8 @@
 #include <iostream>
 
-class myString;
-class NewString;
+
 using namespace std;
 
-class NewString
-{
-
-public:
-	void GetSize(myString& size);
-
-
-private:
-
-};
 
 
 class myString
@@ -34,11 +23,13 @@ public:
 			}
 
 		}
+		SetIndex();
 
 	}
 	myString()        //Constructor when do nothing
 	{
 		char* arr = nullptr;
+		SetIndex();
 	}
 
 	myString(const myString & input)      //Constructor For copy  we must use reference for out input because we put there no point(указатель)
@@ -47,7 +38,17 @@ public:
 
 		InitArr(size, input.arr);
 		
+		
 
+	}
+	myString( myString&& input)      //Constructor For move we must use reference for out input because we put there no point(указатель)
+	{
+		size = input.size;
+
+		arr = input.arr;
+		input.arr = nullptr;
+
+		
 
 	}
 	~myString()
@@ -56,7 +57,10 @@ public:
 	}
 
 
-	void Print();
+	void Print()
+	{
+		cout << idex;
+	}
 	
 
 	myString operator +(const myString& input)
@@ -202,10 +206,19 @@ private:
 	char* arr =nullptr;
 	char size =0 ;
 	bool more = false;
+	static int IndAm;
+	int idex;
 
 protected:
 	 
+	void SetIndex()
+	{
+		IndAm++;
 
+		idex = IndAm;
+
+		cout << "Amount of class := " << IndAm << "Index Current : = " << IndAm << endl;
+	}
 
 	void AddArray(const myString& input1, int NewSize, const myString& input2)
 	{
@@ -363,53 +376,36 @@ protected:
 
 
 
-	friend void Check(myString& value);
-	friend void NewString::GetSize( myString& size);
+
+
 };
 
 
-void Check(myString& value)
-{
-	value.size = 0;
-}
-
-void myString::Print()
-{
-	{
-		for (int i = 0; i < size; i++)
-		{
-			cout << arr[i];
-		}
-	}
-}
-void NewString::GetSize(myString& size)
-{
-	size.Print();
-}
-
-
-
+int myString::IndAm = 0;     //set it by 0
 
 
 int main()
 {
-	myString a("wda");
+	myString a;
 
-	myString b ("3");
+	myString b;
 
-	myString c = a - b;
 
-	a[-100];
+
+	myString d = a + b;
+
+	myString s("awdaw");
+	cout << endl;
 	
+	s.Print();
 //	bool s = a > b;
 	
 //	cout << s;
 
-	Check(b);
-	 
-	NewString d;
-	d.GetSize(a);
-	b.Print();
+
+
+	
+
 
 	//a.Print();
 
